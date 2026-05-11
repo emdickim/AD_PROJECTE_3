@@ -1,0 +1,11 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"  
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+#Es pot eliminar el servei mongo-express si feu servir el DBeaver per connectar-vos a la base de dades.
