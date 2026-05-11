@@ -1,5 +1,7 @@
 package com.ra5.projecte3.model;
 
-public class Role {
-    
+public enum Role {
+    TEACHER,
+    STUDENT,
+    FAMILIAR
 }
