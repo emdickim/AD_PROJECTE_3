@@ -1,7 +1,5 @@
 package com.ra5.projecte3.dto;
 
-import java.util.Optional;
-
 import com.mongodb.lang.Nullable;
 import com.ra5.projecte3.model.Role;
 
@@ -14,13 +12,15 @@ public class UserRequestDTO {
     private String password;
     private Role role;
 
-    //poden ser optionals
+    // Podem ser null
+    @Nullable
+    private String grade;
     
-    private Optional<String> grade;
-    
-    private Optional<String> course;
+    @Nullable
+    private String course;
 
-    private Optional<String> observations;
+    @Nullable
+    private String observations;
 
 
     public UserRequestDTO() {
@@ -35,9 +35,9 @@ public class UserRequestDTO {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.grade = Optional.ofNullable(grade);
-        this.course = Optional.ofNullable(course);
-        this.observations = Optional.ofNullable(observations);
+        this.grade = grade;
+        this.course = course;
+        this.observations = observations;
     }
 
     public String getFirstName() {
@@ -88,28 +88,28 @@ public class UserRequestDTO {
         this.role = role;
     }
 
-    public Optional<String> getGrade() {
+    public String getGrade() {
         return grade;
     }
 
     public void setGrade(String grade) {
-        this.grade = Optional.ofNullable(grade);
+        this.grade = grade;
     }
 
-    public Optional<String>getCourse() {
+    public String getCourse() {
         return course;
     }
 
     public void setCourse(String course) {
-        this.course = Optional.ofNullable(course);
+        this.course = course;
     }
 
-    public Optional<String> getObservations() {
+    public String getObservations() {
         return observations;
     }
 
     public void setObservations(String observations) {
-        this.observations = Optional.ofNullable(observations);
+        this.observations = observations;
     }
 
 }

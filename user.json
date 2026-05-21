@@ -1,0 +1,11 @@
+{
+  "firstName": "Joan",
+  "lastName": "Martí",
+  "email": "joan@example.com",
+  "username": "joan123",
+  "password": "pass123",
+  "role": "STUDENT",
+  "grade": "1st",
+  "course": "DAW",
+  "observations": "Bon estudiant"
+}
