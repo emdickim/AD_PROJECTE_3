@@ -1,13 +1,16 @@
 package com.ra5.projecte3.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.ra5.projecte3.dto.UserRequestDTO;
 import com.ra5.projecte3.dto.UserResponseDTO;
 import com.ra5.projecte3.mapper.UserMapper;
+import com.ra5.projecte3.model.Role;
 import com.ra5.projecte3.model.User;
 import com.ra5.projecte3.repository.UserRepository;
 
@@ -123,5 +126,60 @@ public class UserService {
         // Esborrar i retornar true
         userRepository.deleteById(id);
         return true;
+    }
+    
+    /**
+     * Retorna tots els usuaris convertits a UserResponseDTO
+     * Utilitza Stream per convertir els User a UserResponseDTO
+     */
+    public List<UserResponseDTO> findAll() {
+        return userRepository.findAll()
+            .stream()
+            .map(userMapper::toDto)
+            .collect(Collectors.toList());
+    }
+    
+    /**
+     * Busca un usuari per id
+     * - Retorna UserResponseDTO si existeix
+     * - Retorna null si no existeix
+     */
+    public UserResponseDTO findById(String id) {
+        if (id == null) {
+            return null;
+        }
+        
+        Optional<User> user = userRepository.findById(id);
+        return user.map(userMapper::toDto).orElse(null);
+    }
+    
+    /**
+     * Busca usuaris per rol
+     * - Retorna una llista de UserResponseDTO amb aquell rol
+     * - Retorna una llista buida si no n'hi ha
+     */
+    public List<UserResponseDTO> findByRole(Role role) {
+        if (role == null) {
+            return List.of();
+        }
+        
+        return userRepository.findByRole(role)
+            .stream()
+            .map(userMapper::toDto)
+            .collect(Collectors.toList());
+    }
+    
+    /**
+     * Busca un usuari per username
+     * - Retorna UserResponseDTO si existeix
+     * - Retorna null si no existeix
+     */
+    public UserResponseDTO findByUsername(String username) {
+        if (username == null) {
+            return null;
+        }
+        
+        Optional<User> user = userRepository.findByUsername(username);
+        return user.map(userMapper::toDto).orElse(null);
     }
 }
