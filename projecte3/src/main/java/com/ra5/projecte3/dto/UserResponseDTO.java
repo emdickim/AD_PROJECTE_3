@@ -1,7 +1,6 @@
 package com.ra5.projecte3.dto;
 
 import com.mongodb.lang.Nullable;
-import com.ra5.projecte3.model.AcademicProfile;
 import com.ra5.projecte3.model.Role;
 import java.sql.Timestamp;
 
@@ -15,14 +14,14 @@ public class UserResponseDTO {
     private Role role;
     private Timestamp dataCreated;
     @Nullable
-    private AcademicProfile academicProfile;
+    private AcademicProfileDTO academicProfile;
 
 
     public UserResponseDTO() {
     }
 
     public UserResponseDTO(String id, String firstName, String lastName, String email, String username, Role role,
-            Timestamp dataCreated, AcademicProfile academicProfile) {
+            Timestamp dataCreated, AcademicProfileDTO academicProfile) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -89,11 +88,11 @@ public class UserResponseDTO {
         this.dataCreated = dataCreated;
     }
 
-    public AcademicProfile getAcademicProfile() {
+    public AcademicProfileDTO getAcademicProfile() {
         return academicProfile;
     }
 
-    public void setAcademicProfile(AcademicProfile academicProfile) {
+    public void setAcademicProfile(AcademicProfileDTO academicProfile) {
         this.academicProfile = academicProfile;
     }
 
