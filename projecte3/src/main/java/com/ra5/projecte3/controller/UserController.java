@@ -1,8 +1,11 @@
 package com.ra5.projecte3.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ra5.projecte3.dto.UserRequestDTO;
 import com.ra5.projecte3.dto.UserResponseDTO;
+import com.ra5.projecte3.model.Role;
 import com.ra5.projecte3.service.UserService;
 
 @RestController
@@ -23,6 +27,65 @@ public class UserController {
     // Injecció de dependències per constructor
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+    
+    /**
+     * GET /api/users
+     * Obté tots els usuaris
+     * @return 200 OK amb List<UserResponseDTO>
+     */
+    @GetMapping
+    public ResponseEntity<List<UserResponseDTO>> findAll() {
+        List<UserResponseDTO> users = userService.findAll();
+        return ResponseEntity.ok(users);
+    }
+    
+    /**
+     * GET /api/users/{id}
+     * Obté un usuari per id
+     * @param id ID de l'usuari
+     * @return 200 OK amb UserResponseDTO, o 404 NOT FOUND
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable String id) {
+        UserResponseDTO user = userService.findById(id);
+        
+        if (user == null) {
+            // L'usuari no existeix
+            return ResponseEntity.notFound().build();
+        }
+        
+        return ResponseEntity.ok(user);
+    }
+    
+    /**
+     * GET /api/users/role/{role}
+     * Obté usuaris per rol
+     * @param role Rol de l'usuari a buscar
+     * @return 200 OK amb List<UserResponseDTO>
+     */
+    @GetMapping("/role/{role}")
+    public ResponseEntity<List<UserResponseDTO>> findByRole(@PathVariable Role role) {
+        List<UserResponseDTO> users = userService.findByRole(role);
+        return ResponseEntity.ok(users);
+    }
+    
+    /**
+     * GET /api/users/username/{username}
+     * Obté un usuari per username
+     * @param username Username de l'usuari a buscar
+     * @return 200 OK amb UserResponseDTO, o 404 NOT FOUND
+     */
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserResponseDTO> findByUsername(@PathVariable String username) {
+        UserResponseDTO user = userService.findByUsername(username);
+        
+        if (user == null) {
+            // L'usuari no existeix
+            return ResponseEntity.notFound().build();
+        }
+        
+        return ResponseEntity.ok(user);
     }
     
     /**
